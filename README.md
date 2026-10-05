@@ -73,6 +73,27 @@ GNOME/Wayland, October 2026):
    "not doing anything." Set it to **Windows mode** and let keyd do 100%
    of the remapping in software.
 
+## Cmd+click (optional)
+
+Out of the box, Cmd+click (physical Alt) does **not** act like Ctrl+click —
+e.g. it won't open a link in a new tab in Firefox. The `[cmd:A]` layer only
+translates the keys listed in it, and keyd doesn't see the mouse at all
+unless you list it, so the click goes out with plain Alt held.
+
+To fix it, let keyd manage your mouse (the config already has
+`leftmouse = C-leftmouse` in the Cmd layer):
+
+1. Find your mouse's IDs:
+   `grep -B5 'Handlers=.*mouse' /proc/bus/input/devices`
+   — note the `Vendor=` and `Product=` from the `I:` line.
+2. Under `[ids]` in `/etc/keyd/default.conf`, add a line
+   `m:<Vendor>:<Product>` (e.g. `m:046d:c548`) for each mouse.
+3. `sudo keyd reload`
+
+keyd's mouse support is officially experimental. In our testing (Fedora 44,
+GNOME/Wayland) clicking, dragging and text selection were unaffected, but if
+your pointer misbehaves, remove those lines and reload.
+
 ## Other existing solutions
 
 We only found these while writing this README, after already building and
