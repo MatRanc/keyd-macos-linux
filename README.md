@@ -32,16 +32,14 @@ Fedora; on other distros, install `keyd` yourself first (see its
 
 No logout/reboot needed; it takes effect immediately.
 
-## Why not just use keyd's own bundled `macos.conf`?
+## Why didn't keyd's own bundled `macos.conf` just work?
 
-keyd ships an [example for this exact purpose](https://github.com/rvaiya/keyd/blob/master/examples/macos.conf),
-and a few other repos do similar things
-([mac-keyboard-behavior-in-linux](https://github.com/stevenilsen123/mac-keyboard-behavior-in-linux),
-[Mac-Keyboard-Style-On-Linux](https://github.com/Anas-Alhariri/Mac-Keyboard-Style-On-Linux),
-[mackeys](https://github.com/davidkellis/mackeys)). This repo exists because
-getting there (on keyd v2.6.0 + Fedora 44 + GNOME/Wayland, October 2026)
-surfaced a few gotchas that cost real debugging time, and none of the
-above happened to document them:
+keyd ships an [example for this exact purpose](https://github.com/rvaiya/keyd/blob/master/examples/macos.conf).
+We didn't know that when we started — it was found partway through, already
+installed on disk at `/usr/share/doc/keyd/examples/macos.conf` by the keyd
+package itself — and tried it as the starting point. **It didn't work
+out of the box**, for three concrete reasons (on keyd v2.6.0, Fedora 44,
+GNOME/Wayland, October 2026):
 
 1. **`alt` is not a valid key name.** The upstream `macos.conf` example
    uses `leftmeta = alt`. On keyd v2.6.0 this is silently rejected
@@ -74,6 +72,17 @@ above happened to document them:
    whatever keyd config you write and makes remaps look like they're
    "not doing anything." Set it to **Windows mode** and let keyd do 100%
    of the remapping in software.
+
+## Other existing solutions
+
+We only found these while writing this README, after already building and
+debugging the config above — we didn't evaluate or try them first, so this
+isn't a claim that they have (or don't have) the same issues. If you're
+choosing between options, they're worth a look too:
+
+- [mac-keyboard-behavior-in-linux](https://github.com/stevenilsen123/mac-keyboard-behavior-in-linux) — a keyd script for this, tested on GNOME/PopOS.
+- [Mac-Keyboard-Style-On-Linux](https://github.com/Anas-Alhariri/Mac-Keyboard-Style-On-Linux) — another keyd-based profile (2025).
+- [mackeys](https://github.com/davidkellis/mackeys) — also keyd-based.
 
 ## Uninstall
 
