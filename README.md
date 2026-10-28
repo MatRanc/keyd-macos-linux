@@ -115,4 +115,4 @@ gsettings set org.gnome.mutter overlay-key 'Super'
 
 ## License
 
-MIT
+[GNU Affero General Public License v3.0](LICENSE)
